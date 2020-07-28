@@ -5,8 +5,12 @@ from requests.exceptions import HTTPError
 #joey - 76561198045755215
 #me - 76561198031865653
 
+#user input for user search
+userId = input("Enter Steam User ID: ")
+print("Entered User ID is " + userId)
+
 try: 
-    dataFetch = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=40C4A06852CCC51C4B062714DA4478C5&steamids=76561198045755215')
+    dataFetch = requests.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=40C4A06852CCC51C4B062714DA4478C5&steamids=' + userId)
     dataFetch.raise_for_status()
     
     #access json for user summary
@@ -14,6 +18,8 @@ try:
     diction = json.loads(fetchedJson)
     userName = diction['response']['players'][0]['personaname']
     userId = diction['response']['players'][0]['steamid']
+
+    input("User " + userName + " found, press any key to continue...")
     print("Entire JSON retrieval for " + userName)
     print(fetchedJson)
 
